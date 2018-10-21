@@ -1,0 +1,645 @@
+% Package and macro definitions for CSC 503
+% Originally prepared August 23, 2012 by Jon Doyle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Font and symbol definition packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{times} 
+\usepackage{helvet} 
+%%% AMS MATH FONTS
+\usepackage{amsmath}
+\usepackage{amssymb}
+%%% eucal changes \mathcal to use Euler script font
+\usepackage{eucal}
+%%% ST.MARY ROAD FONT
+%%% stmaryrd provides program semantics symbols
+%%% \llparenthesis, \rrparenthesis
+\usepackage{stmaryrd}
+
+%%% MULTIPLE COLUMNS (for typesetting answer sheets)
+\usepackage{multicol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Homework page dimensions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\footskip}{0.5in}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%% Homework text style
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\sloppy
+\raggedbottom
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% INDICATING ANSWERS TO HOMEWORK PROBLEMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{answer}%
+{\par\noindent\textbf{Answer}\par\noindent}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% PACKAGES FOR CREATING AND INCLUDING GRAPHICS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% TIKZ DIAGRAMMING PACKAGE
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+
+%%% GRAPHICX: IMAGE FILE INCLUSION
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.jpg,.jpeg,.pdf,.eps,.epsi,.wmf}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% NUMBER SYSTEMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% NATURAL NUMBERS
+\newcommand{\NN}{\mathord{\mathbb{N}}}
+%%% INTEGERS
+\newcommand{\ZN}{\mathord{\mathbb{Z}}}
+%%% RATIONAL NUMBERS
+\newcommand{\QN}{\mathord{\mathbb{Q}}}
+%%% REAL NUMBERS
+\newcommand{\RN}{\mathord{\mathbb{R}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% LOGICAL LANGUAGE SYMBOLS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% DEFINITIONS ONLY WHERE NEEDED
+
+%%% CONNECTIVES
+
+%%% TRUTH
+%%% \top
+
+%%% FALSITY
+%%% \bot
+
+%%% NEGATION
+%%% \neg
+\newcommand{\lneg}{\neg}
+
+%%% CONJUNCTION
+%%% \land
+\newcommand{\bigland}{\bigwedge}
+
+%%% DISJUNCTION
+%%% \lor
+\newcommand{\biglor}{\bigvee}
+
+%%% IMPLICATION
+\renewcommand{\implies}{\rightarrow}
+%%% BIIMPLICATION (IF AND ONLY IF)
+\renewcommand{\iff}{\leftrightarrow}
+
+%%% QUANTIFIERS
+%%% \forall
+%%% \exists
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% LOGICAL METALANGUAGE SYMBOLS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ENTAILMENT
+%%% \models
+%%% EQUIVALENCE
+%%% \equiv
+%%% LOGICAL CONSEQUENCES
+\newcommand{\Cn}{\text{Cn}}               
+%%% TURNSTILE
+\newcommand{\turn}{\vdash}
+%%% NEGATED TURNSTILE
+\newcommand{\notturn}{\nvdash}	       
+%%% BIPROVABLE
+\newcommand{\lrturn}{\dashv\vdash}
+%%% DEDUCTIVE CLOSURE
+\newcommand{\Th}{\mathord{\text{Th}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% MODAL LOGIC LANGUAGE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% MODAL LOGIC SATISFACTION/FORCING
+\newcommand{\fmodels}{\Vdash}
+
+%%% NECESSITY AND POSSIBILITY
+%%% \Box
+%%% \Diamond
+
+%%% LTL TEMPORAL MODALITIES
+\newcommand{\Sometime}{\mathord{\mathsf{F}}}
+\newcommand{\Forever}{\mathord{\mathsf{G}}}
+\newcommand{\NextO}{\mathord{\mathsf{O}}}
+\newcommand{\NextX}{\mathord{\mathsf{X}}}
+\newcommand{\Next}{\NextX}
+\newcommand{\Until}{\mathrel{\mathsf{U}}}
+\newcommand{\Release}{\mathrel{\mathsf{R}}}
+\newcommand{\WeakUntil}{\mathrel{\mathsf{W}}}
+\newcommand{\Before}{\mathrel{\mathsf{B}}}
+
+%%% CTL PATH QUANTIFIERS
+\newcommand{\All}{\mathord{\mathsf{A}}}
+\newcommand{\Exists}{\mathord{\mathsf{E}}}
+
+%%% EPISTEMIC LOGIC MODALITIES
+%%% K is basic knowledge modality
+\newcommand{\Everyone}{\mathord{\mathsf{E}}}
+\newcommand{\Common}{\mathord{\mathsf{C}}}
+\newcommand{\Distributed}{\mathord{\mathsf{D}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% HOARE LOGIC LANGUAGE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% HOARE PARENTHESES
+\newcommand{\lHcond}{\mathopen\llparenthesis}
+\newcommand{\rHcond}{\mathclose\rrparenthesis}
+%%% HOARE TRIPLES
+\newcommand{\Hcond}[1]{\lHcond #1 \rHcond}
+\newcommand{\Hoare}[3]{\Hcond{#1} \mathrel{#2} \Hcond{#3}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% BASIC PROGRAMS (HUTH AND RYAN)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\hrprogfont}{\mathtt}
+\newcommand{\If}{\mathrel{\hrprogfont{if}}}
+\newcommand{\Else}{\mathrel{\hrprogfont{else}}}
+\newcommand{\While}{\mathrel{\hrprogfont{while}}}
+\newcommand{\IfElse}[3]{\If #1 \ \{ #2 \} \Else \{ #3 \}}
+\newcommand{\Whiledo}[2]{\While #1\ \{ #2 \}}
+\newcommand{\True}{\mathord{\hrprogfont{true}}}
+\newcommand{\False}{\mathord{\hrprogfont{false}}}
+
+\newcommand{\pgets}{\mathrel{\mathop:}\mathord{-}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% PARTIAL AND TOTAL CORRECTNESS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% PARTIAL AND TOTAL CORRECTNESS ENTAILMENT
+\newcommand{\parmodels}{\mathrel{\models_{\textup{par}}}}
+\newcommand{\totmodels}{\mathrel{\models_{\textup{tot}}}}
+%%% PARTIAL AND TOTAL CORRECTNESS PROVABILITY
+\newcommand{\parturn}{\mathrel{\turn_{\textup{par}}}}
+\newcommand{\totturn}{\mathrel{\turn_{\textup{tot}}}}
+%%% CONSEQUENCE OF ARITHMETIC
+\newcommand{\arturn}{\mathrel{\turn_{\textup{AR}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% OTHER MACROS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% DEFINITIONAL EQUALITY
+\newcommand{\defeq}{\stackrel{\text{\tiny def}}{=}}   % Defining equality
+%%% Font for code
+\newcommand{\code}[1]{{\texttt{\textbf{#1}}}}
+\newcommand{\Code}[1]{{\mathtt{\mathbf{#1}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% \UNITYID COMMAND FOR INDICATING AUTHORSHIP
+%%% Example usage:  \unityid{jdoyle2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\unityid}[1]{%
+  \def\testidarg{#1}%
+  \def\missingidarg{MISSING}
+  \def\emptyidarg{}%
+  Unity ID:\ %
+  \ifx\testidarg\missingidarg%
+  \errmessage{unityid: Replace MISSING with your Unity ID in your
+    answer file.  Hit Enter to continue.}%
+  #1%
+  \else%
+  \ifx\testidarg\emptyidarg%
+  \errmessage{unityid: Fill in your Unity ID in your answer file.  Hit
+    Enter to continue.}%
+  \missingidarg%
+  \else%
+  #1%
+  \fi%
+  \fi%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% SELLINGER'S FITCH.STY PACKAGE FOR PROOFS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+% Macros for Fitch-style natural deduction. 
+% Author: Peter Selinger, University of Ottawa
+% Created: Jan 14, 2002
+% Modified: Feb 8, 2005
+% Version: 0.5
+% Copyright: (C) 2002-2005 Peter Selinger
+% Filename: fitch.sty
+% Documentation: fitchdoc.tex
+% URL: http://quasar.mathstat.uottawa.ca/~selinger/fitch/
+
+% License:
+%
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2, or (at your option)
+% any later version.
+%
+% This program is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+% General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software Foundation, 
+% Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+
+% USAGE EXAMPLE:
+% 
+% The following is a simple example illustrating the usage of this
+% package.  For detailed instructions and additional functionality, see
+% the user guide, which can be found in the file fitchdoc.tex.
+% 
+% \[
+% \begin{nd}
+%   \hypo{1}  {P\vee Q}   
+%   \hypo{2}  {\neg Q}                         
+%   \open                              
+%   \hypo{3a} {P}
+%   \have{3b} {P}        \r{3a}
+%   \close                   
+%   \open
+%   \hypo{4a} {Q}
+%   \have{4b} {\neg Q}   \r{2}
+%   \have{4c} {\bot}     \ne{4a,4b}
+%   \have{4d} {P}        \be{4c}
+%   \close                             
+%   \have{5}  {P}        \oe{1,3a-3b,4a-4d}                 
+% \end{nd}
+% \]
+
+{\chardef\x=\catcode`\*
+\catcode`\*=11
+\global\let\nd*astcode\x}
+\catcode`\*=11
+
+% References
+
+\newcount\nd*ctr
+\def\nd*render{\expandafter\ifx\expandafter\nd*x\nd*base\nd*x\the\nd*ctr\else\nd*base\ifnum\nd*ctr<0\the\nd*ctr\else\ifnum\nd*ctr>0+\the\nd*ctr\fi\fi\fi}
+\expandafter\def\csname nd*-\endcsname{}
+
+\def\nd*num#1{\nd*numo{\nd*render}{#1}\global\advance\nd*ctr1}
+\def\nd*numopt#1#2{\nd*numo{$#1$}{#2}}
+\def\nd*numo#1#2{\edef\x{#1}\mbox{$\x$}\expandafter\global\expandafter\let\csname nd*-#2\endcsname\x}
+\def\nd*ref#1{\expandafter\let\expandafter\x\csname nd*-#1\endcsname\ifx\x\relax%
+  \errmessage{Undefined natdeduction reference: #1}\else\mbox{$\x$}\fi}
+\def\nd*noop{}
+\def\nd*set#1#2{\ifx\relax#1\nd*noop\else\global\def\nd*base{#1}\fi\ifx\relax#2\relax\else\global\nd*ctr=#2\fi}
+\def\nd*reset{\nd*set{}{1}}
+\def\nd*refa#1{\nd*ref{#1}}
+\def\nd*aux#1#2{\ifx#2-\nd*refa{#1}--\def\nd*c{\nd*aux{}}%
+  \else\ifx#2,\nd*refa{#1}, \def\nd*c{\nd*aux{}}%
+  \else\ifx#2;\nd*refa{#1}; \def\nd*c{\nd*aux{}}%
+  \else\ifx#2.\nd*refa{#1}. \def\nd*c{\nd*aux{}}%
+  \else\ifx#2)\nd*refa{#1})\def\nd*c{\nd*aux{}}%
+  \else\ifx#2(\nd*refa{#1}(\def\nd*c{\nd*aux{}}%
+  \else\ifx#2\nd*end\nd*refa{#1}\def\nd*c{}%
+  \else\def\nd*c{\nd*aux{#1#2}}%
+  \fi\fi\fi\fi\fi\fi\fi\nd*c}
+\def\ndref#1{\nd*aux{}#1\nd*end}
+
+% Layer A
+
+% define various dimensions (explained in fitchdoc.tex):
+\newlength{\nd*dim} 
+\newdimen\nd*depthdim
+\newdimen\nd*hsep
+\newdimen\ndindent
+\ndindent=1em
+% user command to redefine dimensions
+\def\nddim#1#2#3#4#5#6#7#8{\nd*depthdim=#3\relax\nd*hsep=#6\relax%
+\def\nd*height{#1}\def\nd*thickness{#8}\def\nd*initheight{#2}%
+\def\nd*indent{#5}\def\nd*labelsep{#4}\def\nd*justsep{#7}}
+% set initial dimensions
+\nddim{4.5ex}{3.5ex}{1.5ex}{1em}{1.6em}{.5em}{2.5em}{.2mm}
+
+\def\nd*v{\rule[-\nd*depthdim]{\nd*thickness}{\nd*height}}
+\def\nd*t{\rule[-\nd*depthdim]{0mm}{\nd*height}\rule[-\nd*depthdim]{\nd*thickness}{\nd*initheight}}
+\def\nd*i{\hspace{\nd*indent}} 
+\def\nd*s{\hspace{\nd*hsep}}
+\def\nd*g#1{\nd*f{\makebox[\nd*indent][c]{$#1$}}}
+\def\nd*f#1{\raisebox{0pt}[0pt][0pt]{$#1$}}
+\def\nd*u#1{\makebox[0pt][l]{\settowidth{\nd*dim}{\nd*f{#1}}%
+    \addtolength{\nd*dim}{2\nd*hsep}\hspace{-\nd*hsep}\rule[-\nd*depthdim]{\nd*dim}{\nd*thickness}}\nd*f{#1}}
+
+% Lists
+
+\def\nd*push#1#2{\expandafter\gdef\expandafter#1\expandafter%
+  {\expandafter\nd*cons\expandafter{#1}{#2}}}
+\def\nd*pop#1{{\def\nd*nil{\gdef#1{\nd*nil}}\def\nd*cons##1##2%
+    {\gdef#1{##1}}#1}}
+\def\nd*iter#1#2{{\def\nd*nil{}\def\nd*cons##1##2{##1#2{##2}}#1}}
+\def\nd*modify#1#2#3{{\def\nd*nil{\gdef#1{\nd*nil}}\def\nd*cons##1##2%
+    {\advance#2-1 ##1\advance#2 1 \ifnum#2=1\nd*push#1{#3}\else%
+      \nd*push#1{##2}\fi}#1}}
+
+\def\nd*cont#1{{\def\nd*t{\nd*v}\def\nd*v{\nd*v}\def\nd*g##1{\nd*i}%
+    \def\nd*i{\nd*i}\def\nd*nil{\gdef#1{\nd*nil}}\def\nd*cons##1##2%
+    {##1\expandafter\nd*push\expandafter#1\expandafter{##2}}#1}}
+
+% Layer B
+
+\newcount\nd*n
+\def\nd*beginb{\begingroup\nd*reset\gdef\nd*stack{\nd*nil}\nd*push\nd*stack{\nd*t}%
+  \begin{array}{l@{\hspace{\nd*labelsep}}l@{\hspace{\nd*justsep}}l}}
+\def\nd*resumeb{\begingroup\begin{array}{l@{\hspace{\nd*labelsep}}l@{\hspace{\nd*justsep}}l}}
+\def\nd*endb{\end{array}\endgroup}
+\def\nd*hypob#1#2{\nd*f{\nd*num{#1}}&\nd*iter\nd*stack\relax\nd*cont\nd*stack\nd*s\nd*u{#2}&}
+\def\nd*haveb#1#2{\nd*f{\nd*num{#1}}&\nd*iter\nd*stack\relax\nd*cont\nd*stack\nd*s\nd*f{#2}&}
+\def\nd*havecontb#1#2{&\nd*iter\nd*stack\relax\nd*cont\nd*stack\nd*s\nd*f{\hspace{\ndindent}#2}&}
+\def\nd*hypocontb#1#2{&\nd*iter\nd*stack\relax\nd*cont\nd*stack\nd*s\nd*u{\hspace{\ndindent}#2}&}
+
+\def\nd*openb{\nd*push\nd*stack{\nd*i}\nd*push\nd*stack{\nd*t}}
+\def\nd*closeb{\nd*pop\nd*stack\nd*pop\nd*stack}
+\def\nd*guardb#1#2{\nd*n=#1\multiply\nd*n by 2 \nd*modify\nd*stack\nd*n{\nd*g{#2}}}
+
+% Layer C
+
+\def\nd*clr{\gdef\nd*cmd{}\gdef\nd*typ{\relax}}
+\def\nd*sto#1#2#3{\gdef\nd*typ{#1}\gdef\nd*byt{}%
+  \gdef\nd*cmd{\nd*typ{#2}{#3}\nd*byt\\}}
+\def\nd*chtyp{\expandafter\ifx\nd*typ\nd*hypocontb\def\nd*typ{\nd*havecontb}\else\def\nd*typ{\nd*haveb}\fi}
+\def\nd*hypoc#1#2{\nd*chtyp\nd*cmd\nd*sto{\nd*hypob}{#1}{#2}}
+\def\nd*havec#1#2{\nd*cmd\nd*sto{\nd*haveb}{#1}{#2}}
+\def\nd*hypocontc#1{\nd*chtyp\nd*cmd\nd*sto{\nd*hypocontb}{}{#1}}
+\def\nd*havecontc#1{\nd*cmd\nd*sto{\nd*havecontb}{}{#1}}
+\def\nd*by#1#2{\ifx\nd*x#2\nd*x\gdef\nd*byt{\mbox{#1}}\else\gdef\nd*byt{\mbox{#1, \ndref{#2}}}\fi}
+
+% multi-line macros
+\def\nd*mhypoc#1#2{\nd*mhypocA{#1}#2\\\nd*stop\\}
+\def\nd*mhypocA#1#2\\{\nd*hypoc{#1}{#2}\nd*mhypocB}
+\def\nd*mhypocB#1\\{\ifx\nd*stop#1\else\nd*hypocontc{#1}\expandafter\nd*mhypocB\fi}
+\def\nd*mhavec#1#2{\nd*mhavecA{#1}#2\\\nd*stop\\}
+\def\nd*mhavecA#1#2\\{\nd*havec{#1}{#2}\nd*mhavecB}
+\def\nd*mhavecB#1\\{\ifx\nd*stop#1\else\nd*havecontc{#1}\expandafter\nd*mhavecB\fi}
+\def\nd*mhypocontc#1{\nd*mhypocB#1\\\nd*stop\\}
+\def\nd*mhavecontc#1{\nd*mhavecB#1\\\nd*stop\\}
+
+\def\nd*beginc{\nd*beginb\nd*clr}
+\def\nd*resumec{\nd*resumeb\nd*clr}
+\def\nd*endc{\nd*cmd\nd*endb}
+\def\nd*openc{\nd*cmd\nd*clr\nd*openb}
+\def\nd*closec{\nd*cmd\nd*clr\nd*closeb}
+\let\nd*guardc\nd*guardb
+
+% Layer D
+
+% macros with optional arguments spelled-out
+\def\nd*hypod[#1][#2]#3[#4]#5{\ifx\relax#4\relax\else\nd*guardb{1}{#4}\fi\nd*mhypoc{#3}{#5}\nd*set{#1}{#2}}
+\def\nd*haved[#1][#2]#3[#4]#5{\ifx\relax#4\relax\else\nd*guardb{1}{#4}\fi\nd*mhavec{#3}{#5}\nd*set{#1}{#2}}
+\def\nd*havecont#1{\nd*mhavecontc{#1}}
+\def\nd*hypocont#1{\nd*mhypocontc{#1}}
+\def\nd*base{undefined}
+\def\nd*opend[#1]#2{\nd*cmd\nd*clr\nd*openb\nd*guard{#1}#2}
+\def\nd*close{\nd*cmd\nd*clr\nd*closeb}
+\def\nd*guardd[#1]#2{\nd*guardb{#1}{#2}}
+
+% Handling of optional arguments.
+
+\def\nd*optarg#1#2#3{\ifx[#3\def\nd*c{#2#3}\else\def\nd*c{#2[#1]{#3}}\fi\nd*c}
+\def\nd*optargg#1#2#3{\ifx[#3\def\nd*c{#1#3}\else\def\nd*c{#2{#3}}\fi\nd*c}
+
+\def\nd*five#1{\nd*optargg{\nd*four{#1}}{\nd*two{#1}}}
+\def\nd*four#1[#2]{\nd*optarg{0}{\nd*three{#1}[#2]}}
+\def\nd*three#1[#2][#3]#4{\nd*optarg{}{#1[#2][#3]{#4}}}
+\def\nd*two#1{\nd*three{#1}[\relax][]}
+
+\def\nd*have{\nd*five{\nd*haved}}
+\def\nd*hypo{\nd*five{\nd*hypod}}
+\def\nd*open{\nd*optarg{}{\nd*opend}}
+\def\nd*guard{\nd*optarg{1}{\nd*guardd}}
+
+\def\nd*init{%
+  \let\open\nd*open%
+  \let\close\nd*close%
+  \let\hypo\nd*hypo%
+  \let\have\nd*have%
+  \let\hypocont\nd*hypocont%
+  \let\havecont\nd*havecont%
+  \let\by\nd*by%
+  \let\guard\nd*guard%
+  \def\ii{\by{$\Rightarrow$I}}%
+  \def\ie{\by{$\Rightarrow$E}}%
+  \def\Ai{\by{$\forall$I}}%
+  \def\Ae{\by{$\forall$E}}%
+  \def\Ei{\by{$\exists$I}}%
+  \def\Ee{\by{$\exists$E}}%
+  \def\ai{\by{$\wedge$I}}%
+  \def\ae{\by{$\wedge$E}}%
+  \def\ai{\by{$\wedge$I}}%
+  \def\ae{\by{$\wedge$E}}%
+  \def\oi{\by{$\vee$I}}%
+  \def\oe{\by{$\vee$E}}%
+  \def\ni{\by{$\neg$I}}%
+  \def\ne{\by{$\neg$E}}%
+  \def\be{\by{$\bot$E}}%
+  \def\nne{\by{$\neg\neg$E}}%
+  \def\r{\by{R}}%
+}
+
+\newenvironment{nd}{\begingroup\nd*init\nd*beginc}{\nd*endc\endgroup}
+\newenvironment{ndresume}{\begingroup\nd*init\nd*resumec}{\nd*endc\endgroup}
+
+\catcode`\*=\nd*astcode
+
+% End of file fitch.sty
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% JD'S MODIFICATIONS TO SELLINGER'S FITCH.STY FILE
+%%% to conform to  Huth & Ryan's notation and nomenclature.
+%%% All Sellinger licenses statements are maintained.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Macros for Fitch-style natural deduction. 
+% Author: Jon Doyle, North Carolina State University
+% Created: Aug 23, 2012
+% Modified: Dec 5, 2015
+% Copyright: (C) 2012-2015 Jon Doyle
+% Filename: hrfitch.sty
+% URL: http://www.csc.ncsu.edu/faculty/doyle/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Beginning of modifications to fitch.sty
+
+%%% Begin the special treatment of *
+{\chardef\x=\catcode`\*
+\catcode`\*=11
+\global\let\nd*astcode\x}
+\catcode`\*=11
+
+%%% Add handler for code lines
+%\def\nd*code{\nd*five{\nd*haved}[][]{}[]\ndcodefont}
+
+%%% Define the justification types
+\def\nd*init{%
+  \let\open\nd*open%
+  \let\close\nd*close%
+  \let\hypo\nd*hypo%
+  \let\have\nd*have%
+  \let\hypocont\nd*hypocont%
+  \let\havecont\nd*havecont%
+  \let\by\nd*by%
+  \let\guard\nd*guard%
+%%% NEW PROOF LINE TYPE
+%%% Add commands for a line of code in program proofs
+%%% Typesets code in bold typewriter font with no line number using
+%%% the C level have-step continuation line command.
+%%% Removes extra indentation inserted by \nd*havecontc
+   \def\code##1{\nd*havecontc{\hspace{-\ndindent}\texttt{\textbf{##1}}}}
+%%% To add later, if needed: continuation lines for code?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% THIS DEFINITION IS UNCHANGED FROM fitch.sty
+%%% Repetition rule
+  \def\r{\by{R}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% THESE JUSTIFICATIONS REDEFINE ONES IN fitch.sty.
+%%% Sellinger uses uppercase I,E; Huth & Ryan use lowercase
+%%% Sellinger uses $\Rightarrow$; Huth & Ryan use $\rightarrow$
+%%% Conjuction rules
+  \def\ai{\by{$\wedge$i}}%
+  \def\ae{\by{$\wedge$e}}%
+%%% Disjunction rules
+  \def\oi{\by{$\vee$i}}%
+  \def\oe{\by{$\vee$e}}%
+%%% Implication rules
+  \def\ii{\by{$\rightarrow$i}}%
+  \def\ie{\by{$\rightarrow$e}}%
+%%% Negation rules
+  \def\ni{\by{$\neg$i}}%
+  \def\ne{\by{$\neg$e}}%
+%%% Double negation rule
+  \def\nne{\by{$\neg\neg$e}}%
+%%% Bottom rule
+  \def\be{\by{$\bot$e}}%
+%%% Universal rules
+  \def\Ai{\by{$\forall$i}}%
+  \def\Ae{\by{$\forall$e}}%
+%%% Existential rules
+  \def\Ei{\by{$\exists$i}}%
+  \def\Ee{\by{$\exists$e}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% THESE JUSTIFICATIONS ARE ADDITIONS TO fitch.sty
+%%% Biimplication rules
+  \def\bii{\by{$\leftrightarrow$i}}%
+  \def\bie{\by{$\leftrightarrow$e}}%
+%%% One-sided conjunction rules
+  \def\aeone{\by{$\wedge$e$_1$}}%
+  \def\aetwo{\by{$\wedge$e$_2$}}%
+%%% One-sided disjunction rules
+  \def\oione{\by{$\vee$i$_1$}}%
+  \def\oitwo{\by{$\vee$i$_2$}}%
+%%% Double negation derived rule
+  \def\nni{\by{$\neg\neg$i}}%
+%%% Copy rule (synonym of repetition rule R)
+  \def\copy{\by{copy}}%     %JD does \copy conflict with something?
+%%% Proof by contradiction
+  \def\pbc{\by{PBC}}%
+%%% Modus Tollens
+  \def\mt{\by{MT}}%
+%%% Law of the Excluded Middle
+  \def\lem{\by{LEM}}%
+%%% de Morgan's laws
+  \def\DMna{\by{deMorgan}}%
+  \def\DMno{\by{deMorgan}}%
+%%% Distribution of conjunction over disjunction
+  \def\distao{\by{Dist.\ $\mathord{\land}(\mathord{\lor})$}}%
+%%% distribution of disjunction over conjunction
+  \def\distoa{\by{Dist.\ $\mathord{\lor}(\mathord{\land})$}}%
+%%% Negation of bottom rules
+  \def\bni{\by{$\bot_\neg$i}}%
+  \def\bne{\by{$\bot_\neg$e}}%
+%%% Negation of top rules
+  \def\tni{\by{$\top_\neg$i}}%
+  \def\tne{\by{$\top_\neg$e}}%
+%%% Nonlogical introduction rules
+  \def\premise{\by{Premise}}%
+  \def\assumption{\by{Assumption}}%
+%%% Propositional ellipsis indicator
+%%% This is not an inference rule, indicates omitted subproof
+  \def\propom{\by{[Prop]}}%
+  \def\Propositional{\by{Propositional}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% HOARE PROGRAM LOGIC RULES
+%%% Proof precondition (aka premise)
+  \def\Precondition{\by{Precondition}}%
+%%% Implication of base logic (arithmetic)
+  \def\Implied{\by{Implied}}%
+  \def\ImpliedAR{\by{$\turn_{\text{AR}}$}}%
+%%% Assignment statement
+  \def\Assignment{\by{Assignment}}%
+%%% Command compositions
+  \def\Composition{\by{Composition}}%
+%%% Conditional statement
+%%% Huth and Ryan use single labels for all parts of conditional rules
+  \def\IfStatement{\by{If-Statement}}%
+  \def\IfStatementone{\by{If-Statement-1}}%
+  \def\IfStatementtwo{\by{If-Statement-2}}%
+%%% New labels for different parts and different rules
+%%% Precondition of full conditional (usually not necessary)
+  \def\IfPre{\by{If-Precondition}}%
+%%% Precondition of Then branch
+  \def\ThenPre{\by{If-Then-Precondition}}%
+%%% Precondition of Else branch
+  \def\ElsePre{\by{If-Else-Precondition}}%
+%%% Postcondition of full conditional
+  \def\IfOne{\by{If-Statement-1}}%
+  \def\IfTwo{\by{If-Statement-2}}%
+%%% While loop rules
+%%% Loop invariant and guard: precondition of the loop body
+  \def\InvariantGuard{\by{Invariant Hyp. and Guard}}%
+%%% Partial-correctness rule
+  \def\PartialWhile{\by{Partial-While}}%
+%%% Total-correctness rule
+  \def\TotalWhile{\by{Total-While}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% MODAL LOGIC RULES
+%%% Box modality rules
+  \def\Bi{\by{$\Box$i}}
+  \def\Be{\by{$\Box$e}}
+  \def\boxi{\by{$\Box$i}}%
+  \def\boxe{\by{$\Box$e}}%
+%%% K modality rules (Ki, Ke are synonyms for Box rules)
+  \def\Ki{\by{$K$i}}%
+  \def\Ke{\by{$K$e}}%
+  \def\KT{\by{$KT$}}%
+  \def\Kfour{\by{$K4$}}%
+  \def\Kfive{\by{$K5$}}%
+%%% Agent-indexed K modality rules
+  % \def\Kii[#1]{\by{$K_{#1}$i}}%
+  % \def\Kie[#1]{\by{$K_{#1}$e}}%
+  % \def\KiT[#1]{\by{$KT_{#1}$}}%
+  % \def\Kifour[#1]{\by{$K4_{#1}$}}%
+  % \def\Kifive[#1]{\by{$K5_{#1}$}}%
+%%% Everyone Knows rules
+  \def\EKi{\by{$E$i}}%
+  \def\EKe{\by{$E$e}}%
+  \def\KE{\by{$KE$}}%
+  \def\EK{\by{$EK$}}%
+%%% Common Knowledge rules
+  \def\CKi{\by{$C$i}}%
+  \def\CKe{\by{$C$e}}%
+  \def\CK{\by{$CK$}}%
+  \def\CT{\by{$CT$}}%  % derived rule
+  \def\Cfour{\by{$C4$}}%
+  \def\Cfive{\by{$C5$}}%
+}
+
+%%% Endthe special treatment of *
+\catcode`\*=\nd*astcode
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% END OF CSC 503 MACROS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\endinput

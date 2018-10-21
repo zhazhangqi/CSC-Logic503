@@ -1,0 +1,116 @@
+\documentclass{article}
+\input{503macros.tex}
+
+\begin{document}
+\begin{center}
+  {\LARGE CSC 503 Homework Assignment 3}\\[1pc]
+  Out: September 10, 2018 \\
+  Due: September 17, 2018 \\
+  \unityid{MISSING}
+\end{center}
+
+\begin{enumerate}
+
+\item \textbf{[30 points]} Using the method described in lecture, construct a
+  formula $\phi$ in \textbf{DNF} to match the following truth table.
+  Show and explain any intermediate steps.
+  \begin{center}
+    \begin{tabular}{ccc|c}
+      $\alpha$ & $\beta$ & $\gamma$ & $\phi$ \\ \hline
+      T & T & T & T\\
+      T & T & F & T\\
+      T & F & T & F\\
+      T & F & F & T\\
+      F & T & T & T\\
+      F & T & F & F\\
+      F & F & T & F\\
+      F & F & F & T
+    \end{tabular}
+  \end{center}
+
+\item \textbf{[30 points]} Using the method described in lecture,
+  construct a formula $\psi$ in \textbf{CNF} to match the following
+  truth table.  Show and explain any intermediate steps.
+  \begin{center}
+    \begin{tabular}{ccc|c}
+      $\alpha$ & $\beta$ & $\gamma$ & $\psi$ \\ \hline
+      T & T & T & T\\
+      T & T & F & F\\
+      T & F & T & F\\
+      T & F & F & T\\
+      F & T & T & T\\
+      F & T & F & T\\
+      F & F & T & F\\
+      F & F & F & T
+    \end{tabular}
+  \end{center}
+
+  \vfill
+  \begin{center}
+    (continued overleaf)
+  \end{center}
+  \newpage
+  
+\item \textbf{[30 points total]} Apply the following version of the
+  algorithm HORN from pages 66--67 of the textbook to the following
+  Horn formula $\varphi$.
+  \begin{enumerate}
+  \item Mark each occurrence of $\top$ in each conjunct of $\varphi$
+    with a ``1'' to indicate $\top$ is marked on the first pass.
+  \item Search the list of conjuncts of $\varphi$ in order until
+    either
+    \begin{enumerate}
+    \item the end of the list is reached, or
+    \item a ``markable'' conjunct is found, that is, one with each of
+      its antecedent propositions marked and its consequent
+      proposition unmarked.
+    \end{enumerate}
+  \item If the end of the list was reached,
+    \begin{enumerate}
+    \item If $\bot$ is not marked, return ``satisfiable'' and halt.
+    \item If $\bot$ is marked, return ``unsatisfiable'' and halt.
+    \end{enumerate}
+  \item Otherwise, mark every occurrence of the consequent proposition
+    of the first markable conjunct with the pass number (2, 3, \dots)
+    in each conjunct of $\varphi$.
+  \item Continue with step (b) again.
+  \end{enumerate}
+  \begin{displaymath}
+    \varphi = 
+    \begin{array}{|lll}
+      1.  & (\top \implies w)                  & \land \\
+      2.  & (w \implies q)                     & \land \\
+      3.  & (x \land t \implies \bot)          & \land \\
+      4.  & (q \land r \implies p)             & \land \\
+      5.  & (v \implies s)                     & \land \\
+      6.  & (w \implies r)                     & \land \\
+      7.  & (r \land s \implies x)             & \land \\
+      8.  & (\top \implies v)                  & \land \\
+      9.  & (v \land q \implies u)             & \land \\
+      10. & (p \land r \land s \implies u)     & \land \\
+      11. & (u \implies v)                     &       \\
+    \end{array}
+  \end{displaymath}
+  Your answer should list propositional letters in the order in which
+  they are marked and indicate the returned value.
+
+  \item \textbf{[10 points]} Can one determine whether the following
+    formula $\psi$ is satisfiable more quickly than by
+    applying the HORN algorithm?  Explain your answer.
+  \begin{displaymath}
+    \psi = 
+    \begin{array}{|lll}
+        & (\top \implies p)                  & \land \\
+        & (\bot \implies q)                  & \land \\
+        & (p \land q \implies v)             & \land \\
+        & (q \implies r)                     & \land \\
+        & (v \implies s)                     & \land \\
+        & (\top \implies r)                  & \land \\
+        & (\top \implies s)                  & \land \\
+        & (v \land t \implies u)             & \land \\
+        & (p \land r \land s \implies u)     & 
+    \end{array}
+  \end{displaymath}
+
+\end{enumerate}
+\end{document}

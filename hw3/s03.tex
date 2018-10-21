@@ -1,0 +1,200 @@
+\documentclass{article}
+\input{503macros.tex}
+
+\begin{document}
+\begin{center}
+  {\LARGE CSC 503 Homework Assignment 3}\\[1pc]
+  Out: September 10, 2018 \\
+  Due: September 17, 2018 \\
+  \unityid{zzha}
+\end{center}
+
+\begin{enumerate}
+
+\item \textbf{[30 points]} Using the method described in lecture, construct a
+  formula $\phi$ in \textbf{DNF} to match the following truth table.
+  Show and explain any intermediate steps.
+  \begin{center}
+    \begin{tabular}{ccc|c}
+      $\alpha$ & $\beta$ & $\gamma$ & $\phi$ \\ \hline
+      T & T & T & T\\
+      T & T & F & T\\
+      T & F & T & F\\
+      T & F & F & T\\
+      F & T & T & T\\
+      F & T & F & F\\
+      F & F & T & F\\
+      F & F & F & T
+    \end{tabular}
+  \end{center}
+  \begin{answer}
+    1. Find lines with $\phi$ true:\\
+    \begin{tabular}{ccc|c}
+      $\alpha$ & $\beta$ & $\gamma$ & $\phi$ \\ \hline
+      T & T & T & T\\
+      T & T & F & T\\
+      T & F & F & T\\
+      F & T & T & T\\
+      F & F & F & T\\
+    \end{tabular}\\ \\
+    2. Conjoin true literals:\\
+    $(\alpha \land \beta \land \gamma)$\\
+    $(\alpha \land \beta \land \neg \gamma)$\\
+    $(\alpha \land \neg \beta \land \neg \gamma)$\\
+    $(\neg \alpha \land \beta \land \gamma)$\\
+    $(\neg \alpha \land \neg \beta \land \neg \gamma)$
+
+    3. Disjoin conjunctions:\\
+    $(\alpha \land \beta \land \gamma) \vee
+    (\alpha \land \beta \land \neg \gamma) \vee
+    (\alpha \land \neg \beta \land \neg \gamma) \vee
+    (\neg \alpha \land \beta \land \gamma) \vee 
+    (\neg \alpha \land \neg \beta \land \neg \gamma)$
+  \end{answer}
+
+\item \textbf{[30 points]} Using the method described in lecture,
+  construct a formula $\psi$ in \textbf{CNF} to match the following
+  truth table.  Show and explain any intermediate steps.
+  \begin{center}
+    \begin{tabular}{ccc|c}
+      $\alpha$ & $\beta$ & $\gamma$ & $\psi$ \\ \hline
+      T & T & T & T\\
+      T & T & F & F\\
+      T & F & T & F\\
+      T & F & F & T\\
+      F & T & T & T\\
+      F & T & F & T\\
+      F & F & T & F\\
+      F & F & F & T
+    \end{tabular}
+  \end{center}
+  \begin{answer}
+    1. Find lines with $\phi$ false:\\
+    \begin{tabular}{ccc|c}
+      $\alpha$ & $\beta$ & $\gamma$ & $\phi$ \\ \hline
+      T & T & F & F\\
+      T & F & T & F\\
+      F & F & T & F\\
+    \end{tabular}\\ \\
+    2. All these must be false:\\
+    $\neg (\alpha \land \beta \land \neg \gamma)$\\
+    $\neg (\alpha \land \neg \beta \land \gamma)$\\
+    $\neg (\neg \alpha \land \neg \beta \land \gamma)$\\
+    3. So disjoin false literals:\\
+    $(\neg \alpha \vee \neg \beta \vee \gamma)$\\
+    $(\neg \alpha \vee \beta \vee \neg \gamma)$\\
+    $(\alpha \vee \beta \vee \neg \gamma)$\\
+    4. Conjoin disjunctions:\\
+    $(\neg \alpha \vee \neg \beta \vee \gamma) \land
+    (\neg \alpha \vee \beta \vee \neg \gamma) \land
+    (\alpha \vee \beta \vee \neg \gamma)$\\
+    
+  \end{answer}
+
+  
+\item \textbf{[30 points total]} Apply the following version of the
+  algorithm HORN from pages 66--67 of the textbook to the following
+  Horn formula $\varphi$.
+  \begin{enumerate}
+  \item Mark each occurrence of $\top$ in each conjunct of $\varphi$
+    with a ``1'' to indicate $\top$ is marked on the first pass.
+  \item Search the list of conjuncts of $\varphi$ in order until
+    either
+    \begin{enumerate}
+    \item the end of the list is reached, or
+    \item a ``markable'' conjunct is found, that is, one with each of
+      its antecedent propositions marked and its consequent
+      proposition unmarked.
+    \end{enumerate}
+  \item If the end of the list was reached,
+    \begin{enumerate}
+    \item If $\bot$ is not marked, return ``satisfiable'' and halt.
+    \item If $\bot$ is marked, return ``unsatisfiable'' and halt.
+    \end{enumerate}
+  \item Otherwise, mark every occurrence of the consequent proposition
+    of the first markable conjunct with the pass number (2, 3, \dots)
+    in each conjunct of $\varphi$.
+  \item Continue with step (b) again.
+  \end{enumerate}
+  \begin{displaymath}
+    \varphi = 
+    \begin{array}{|lll}
+      1.  & (\top \implies w)                  & \land \\
+      2.  & (w \implies q)                     & \land \\
+      3.  & (x \land t \implies \bot)          & \land \\
+      4.  & (q \land r \implies p)             & \land \\
+      5.  & (v \implies s)                     & \land \\
+      6.  & (w \implies r)                     & \land \\
+      7.  & (r \land s \implies x)             & \land \\
+      8.  & (\top \implies v)                  & \land \\
+      9.  & (v \land q \implies u)             & \land \\
+      10. & (p \land r \land s \implies u)     & \land \\
+      11. & (u \implies v)                     &       \\
+    \end{array}
+  \end{displaymath}
+  Your answer should list propositional letters in the order in which
+  they are marked and indicate the returned value.
+  \begin{answer}
+    1, Mark each occurrence of $\top$ in each conjunct on the first pass 
+    and the others on the following passes:\\
+    \begin{displaymath}
+      \varphi = 
+      \begin{array}{|lll}
+        1.  & (\top^1 \implies w^2)                  & \land \\
+        2.  & (w^2 \implies q^3)                     & \land \\
+        3.  & (x^4 \land t \implies \bot)          & \land \\
+        4.  & (q^3 \land r^3 \implies p^4)             & \land \\
+        5.  & (v^2 \implies s^3)                     & \land \\
+        6.  & (w^2 \implies r^3)                     & \land \\
+        7.  & (r^3 \land s^3 \implies x^4)             & \land \\
+        8.  & (\top^1 \implies v^2)                  & \land \\
+        9.  & (v^2 \land q^3 \implies u^4)             & \land \\
+        10. & (p^4 \land r^3 \land s^3 \implies u^4)     & \land \\
+        11. & (u^4 \implies v^2)                     &       \\
+      \end{array}
+    \end{displaymath}
+    The formula is satisfiable  because $\bot$ is not marked. 
+    The order of marking of variables is $w, v, q,s,r, p, x, u$. 
+    The variable $t$ is not marked.\\
+  \end{answer}
+  \item \textbf{[10 points]} Can one determine whether the following
+    formula $\psi$ is satisfiable more quickly than by
+    applying the HORN algorithm?  Explain your answer.
+  \begin{displaymath}
+    \psi = 
+    \begin{array}{|lll}
+        & (\top \implies p)                  & \land \\
+        & (\bot \implies q)                  & \land \\
+        & (p \land q \implies v)             & \land \\
+        & (q \implies r)                     & \land \\
+        & (v \implies s)                     & \land \\
+        & (\top \implies r)                  & \land \\
+        & (\top \implies s)                  & \land \\
+        & (v \land t \implies u)             & \land \\
+        & (p \land r \land s \implies u)     & 
+    \end{array}
+  \end{displaymath}
+ \begin{answer}
+    Yes. Using the HORN algorithm: there will be 3
+    steps to determine the formula is satisfiable(Please see 
+    the following steps), but it is noticed that $\bot$ is not 
+    at the right side of a clause, which means it will never
+    get marked, and we can conclude that the formula is 
+    satisfiable immediately).\\
+    \begin{displaymath}
+      \psi = 
+      \begin{array}{|lll}
+          & (\top^1 \implies p^2)                  & \land \\
+          & (\bot \implies q)                  & \land \\
+          & (p^2 \land q \implies v)             & \land \\
+          & (q \implies r^2)                     & \land \\
+          & (v \implies s^2)                     & \land \\
+          & (\top^1 \implies r^2)                  & \land \\
+          & (\top^1 \implies s^2)                  & \land \\
+          & (v \land t \implies u^2)             & \land \\
+          & (p^2 \land r^2 \land s^2 \implies u^3)     & 
+      \end{array}
+    \end{displaymath}
+  \end{answer}
+\end{enumerate}
+\end{document}

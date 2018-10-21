@@ -1,0 +1,80 @@
+\documentclass{article}
+\input{503macros.tex}
+
+\begin{document}
+\begin{center}
+  {\LARGE CSC 503 Homework Assignment 5}\\[1pc]
+  Out: September 25, 2018 \\
+  Due: October 3, 2018 \\
+  \unityid{MISSING}
+\end{center}
+
+If using the Fitch macros to typeset proofs in first order logic, one
+introduces a dummy variable $x$ by means of the command
+\verb+\open[x]+. 
+
+\begin{enumerate}
+\item[1.] \textbf{[20 points]} Using only the basic natural deduction
+  rules, prove  the sequent
+  \begin{displaymath}
+    \forall x \forall y (\neg R(y) \implies S(x))
+    \turn
+    (\exists y \neg R(y)) \implies (\forall x S(x)).
+\end{displaymath}
+\end{enumerate}
+
+\begin{enumerate}
+\item[2.] \textbf{[20 points]} Using only the basic natural deduction
+  rules, prove  the sequent
+  \begin{displaymath}
+    \forall x (P(x) \implies \neg R(x))
+    \turn
+    \neg( \exists x ( P(x) \land R(x))).
+  \end{displaymath}
+\end{enumerate}
+
+\begin{enumerate}
+\item[3.] \textbf{[10 points]} Using only the basic natural deduction
+  rules, prove  the sequent
+  \begin{displaymath}
+    \forall x\ P(a,f(a),x),
+    \forall z \forall x \forall y\ (P(x,y,z) \implies P(f(x),y,f(f(z)))) 
+    \turn
+    P(f(a),f(a),f(f(f(a)))).
+  \end{displaymath}
+\end{enumerate}
+
+\begin{enumerate}
+\item[4.] \textbf{[20 points]} Using only the basic natural deduction
+  rules, prove  the sequent
+  \begin{displaymath}
+    \exists x \forall y \forall z P(x,y,z)
+    \turn
+    \forall z \forall y \exists x P(x,y,z).
+\end{displaymath}
+\end{enumerate}
+
+\begin{enumerate}
+\item[5.] \textbf{[10 points]} Using only the basic natural deduction
+  rules, prove the sequent
+  \begin{displaymath}
+    \forall x \forall y\ [S(x,y) \implies \neg S(y,x)]
+    \turn
+    \forall x\ \neg S(x,x)
+  \end{displaymath}
+\end{enumerate}
+
+\begin{enumerate}
+\item[6.] \textbf{[20 points]} Using only the basic natural deduction
+  rules, prove the sequent
+  \begin{displaymath}
+    \forall x \forall y \forall z [(S(x,y) \land S(y,z)) \implies
+    S(x,z)],
+    \forall x \neg S(x,x)
+    \turn
+    \forall x \forall y [S(x,y) \implies \neg S(y,x)]
+  \end{displaymath}
+\end{enumerate}
+
+\end{document}
+

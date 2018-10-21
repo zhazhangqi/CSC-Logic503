@@ -1,0 +1,207 @@
+\documentclass{article}
+\input{503macros.tex}
+
+\begin{document}
+\begin{center}
+  {\LARGE CSC 503 Homework Assignment 5}\\[1pc]
+  Out: September 25, 2018 \\
+  Due: October 3, 2018 \\
+  \unityid{zzha}
+\end{center}
+
+If using the Fitch macros to typeset proofs in first order logic, one
+introduces a dummy variable $x$ by means of the command
+\verb+\open[x]+. 
+
+\begin{enumerate}
+\item[1.] \textbf{[20 points]} Using only the basic natural deduction
+  rules, prove  the sequent
+  \begin{displaymath}
+    \forall x \forall y (\neg R(y) \implies S(x))
+    \turn
+    (\exists y \neg R(y)) \implies (\forall x S(x)).
+\end{displaymath}
+\end{enumerate}
+\begin{answer}
+  \[
+    \begin{nd}
+      \hypo{1} {\forall x \forall y (\neg R(y) \implies S(x))} \premise{}
+      \have{2} {\exists y \neg R(y)} \assumption{}
+      \open[y_0]
+        \have{3} {\neg R(y_0)} \assumption{}
+        \open[x_0]
+          \hypo{4} {}
+          \have{5} {\forall y (\neg R(y) \implies S(x_0))} \Ae{1}
+          \have{6} {\neg R(y_0) \implies S(x_0)} \Ae{5}
+          \have{7} {S(x_0)} \ie{3,6}
+        \close
+        \have{8} {\forall x S(x)} \Ai{4-7}
+      \close
+      \have{9} {\forall x S(x)} \Ee{2, 3-8}
+      \have{10} {(\exists y \neg R(y)) \implies (\forall x S(x))} \ii{2,9}
+    \end{nd}
+  \]
+\end{answer}
+
+\begin{enumerate}
+\item[2.] \textbf{[20 points]} Using only the basic natural deduction
+  rules, prove  the sequent
+  \begin{displaymath}
+    \forall x (P(x) \implies \neg R(x))
+    \turn
+    \neg( \exists x ( P(x) \land R(x))).
+  \end{displaymath}
+\end{enumerate}
+\begin{answer}
+  \[
+    \begin{nd}
+      \hypo{1} {\forall x (P(x) \implies \neg R(x))} \premise{}
+      \open
+        \have{2} {\exists x ( P(x) \land R(x))} \assumption{}
+        \open[x_0]
+          \have{3} {P(x_0) \land R(x_0)} \assumption{}
+          \have{4} {P(x_0)} \aeone{3}
+          \have{5} {R(x_0)} \aetwo{3}
+          \have{6} {P(x_0) \implies \neg R(x_0)} \Ae{1}
+          \have{7} {\neg R(x_0)} \ie{4,6}
+          \have{8} {\bot} \ne{5,7}
+        \close
+        \have{9} {\bot} \Ee{3,8}
+      \close
+      \have{10} {\neg( \exists x ( P(x) \land R(x)))} \ni{2,9}
+    \end{nd}
+  \]
+\end{answer}
+
+
+\begin{enumerate}
+\item[3.] \textbf{[10 points]} Using only the basic natural deduction
+  rules, prove  the sequent
+  \begin{displaymath}
+    \forall x\ P(a,f(a),x),
+    \forall z \forall x \forall y\ (P(x,y,z) \implies P(f(x),y,f(f(z)))) 
+    \turn
+    P(f(a),f(a),f(f(f(a)))).
+  \end{displaymath}
+\end{enumerate}
+\begin{answer}
+  \[
+    \begin{nd}
+      \hypo{1} {\forall x\ P(a,f(a),x)} \premise{}
+      \hypo{2} {\forall z \forall x \forall y\ (P(x,y,z) \implies P(f(x),y,f(f(z))))} \premise{}
+      \open[f(a)]
+        \have{3} {P(a,f(a),f(a))} \Ae{1}
+        \have{4} {\forall x \forall y\ (P(x,y,f(a)) \implies P(f(x),y,f(f(f(a)))))} \Ae{2}
+        \have{5} {\forall y\ (P(a,y,f(a)) \implies P(f(a),y,f(f(f(a)))))} \Ae{4}
+        \have{6} {P(a,f(a),f(a)) \implies P(f(a),f(a),f(f(f(a))))} \Ae{5}
+        \have{7} {P(f(a),f(a),f(f(f(a))))} \ie{3,6}
+      \close
+      \have{8} {P(f(a),f(a),f(f(f(a))))} \Ee{3,7}
+    \end{nd}
+  \]
+\end{answer}
+
+\begin{enumerate}
+\item[4.] \textbf{[20 points]} Using only the basic natural deduction
+  rules, prove  the sequent
+  \begin{displaymath}
+    \exists x \forall y \forall z P(x,y,z)
+    \turn
+    \forall z \forall y \exists x P(x,y,z).
+\end{displaymath}
+\end{enumerate}
+\begin{answer}
+  \[
+    \begin{nd}
+      \hypo{1} {\exists x \forall y \forall z P(x,y,z)} \premise{}
+      \open[z_0]
+        \have{2}{}
+        \open[y_0]  
+          \have{3}{}
+          \open[x_0]
+            \have{4} {\forall y \forall z P(x_0,y,z)} \assumption{}
+            \have{5} {\forall z P(x_0,y_0,z)} \Ae{4}
+            \have{6} {P(x_0,y_0,z_0)} \Ae{5}
+          \close
+          \have{7} {\exists x P(x,y_0,z_0)} \Ei{6}
+        \close
+        \have{8} {\forall y \exists x P(x,y,z_0)} \Ai{7}
+      \close
+      \have{9} {\forall z \forall y \exists x P(x,y,z)} \Ai{8}
+    \end{nd}
+  \]
+\end{answer}
+
+\begin{enumerate}
+\item[5.] \textbf{[10 points]} Using only the basic natural deduction
+  rules, prove the sequent
+  \begin{displaymath}
+    \forall x \forall y\ [S(x,y) \implies \neg S(y,x)]
+    \turn
+    \forall x\ \neg S(x,x)
+  \end{displaymath}
+\end{enumerate}
+\begin{answer}
+  \[
+    \begin{nd}
+      \hypo{1} {\forall x \forall y\ [S(x,y) \implies \neg S(y,x)]} \premise{}
+      \open[x_0]
+        \have{2} {\forall y\ [S(x_0,y) \implies \neg S(y,x_0)]} \Ae{1}
+        \have{3} { S(x_0,x_0) \implies \neg S(x_0,x_0)} \Ae{2}
+        \open
+          \have{4} {S(x_0,x_0)} \assumption{}
+          \have{5} {\neg S(x_0,x_0)} \ie{4,3}
+          \have{6} {\bot} \ne{4,5}
+        \close
+        \have{7} {\neg S(x_0,x_0)} \ni{4-6}
+      \close
+      \have{8} {\forall x \neg S(x,x)} \Ai{2,7}
+    \end{nd}
+  \]
+\end{answer}
+
+\begin{enumerate}
+\item[6.] \textbf{[20 points]} Using only the basic natural deduction
+  rules, prove the sequent
+  \begin{displaymath}
+    \forall x \forall y \forall z [(S(x,y) \land S(y,z)) \implies
+    S(x,z)],
+    \forall x \neg S(x,x)
+    \turn
+    \forall x \forall y [S(x,y) \implies \neg S(y,x)]
+  \end{displaymath}
+\end{enumerate}
+\begin{answer}
+  \[
+    \begin{nd}
+      \hypo{1} {\forall x \forall y \forall z [(S(x,y) \land S(y,z)) \implies S(x,z)]} \premise{}
+      \hypo{2} {\forall x \neg S(x,x)} \premise{}
+      \open[x_0] 
+        \have{3} {}
+        \open[y_0]
+        \have{4} {}
+          \have{5} {\forall y \forall z [(S(x_0,y) \land S(y,z)) \implies S(x_0,z)]} \Ae{1}
+          \have{6} {\forall z [(S(x_0,y_0) \land S(y_0,z)) \implies S(x_0,z)]} \Ae{5}
+          \have{7} { (S(x_0,y_0) \land S(y_0,x_0)) \implies S(x_0,x_0)} \Ae{6}
+          \open
+            \have{8} {S(x_0,y_0)} \assumption{}
+            \open
+              \have{9} {S(y_0,x_0)} \assumption{}
+              \have{10} {S(x_0,y_0) \land S(y_0, x_0)} \ai{8,9}
+              \have{11} {S(x_0,x_0)} \ie{10,7}
+              \have{12} {\neg S(x_0,x_0)} \Ae{2}
+              \have{13} {\bot} \ne{11,12}
+            \close
+            \have{14} {\neg S(y_0,x_0)} \ni{9-13}
+          \close
+          \have{15} {S(x_0,y_0) \implies \neg S(y_0,x_0)} \ii{8,14}
+        \close
+        \have{16} {\forall y [S(x_0,y) \implies \neg S(y,x_0)]} \Ai{4,15}
+      \close
+      \have{17} {\forall x \forall y [S(x,y) \implies \neg S(y,x)]} \Ai{3,16}
+    \end{nd}
+  \]
+\end{answer}
+
+\end{document}
+
