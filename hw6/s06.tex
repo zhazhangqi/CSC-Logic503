@@ -1,0 +1,61 @@
+\documentclass{article}
+\input{503macros.tex}
+
+\begin{document}
+\begin{center}
+  {\LARGE CSC 503 Homework Assignment 6}\\[1pc]
+  Out: October 17, 2018 \\
+  Due: October 26, 2018 \\
+  \unityid{zzha}
+\end{center}
+
+\begin{enumerate}
+
+\item \textbf{[10 points]} Rewrite the formula
+  \begin{displaymath}
+    (P(x,y) \implies (\neg Q(x,y) \land R(y,z))) \land (P(x,y) \land
+    S(y,x))
+\end{displaymath}
+in clausal form set notation.
+
+\item \textbf{[10 points]} Rewrite the statement
+  \begin{displaymath}
+    \{ \;
+    \{ R(x,y,z), S(y,z), S(x,y) \},
+    \;
+    \{ P(x), S(x,y), \neg R(y,y,x) \},
+    \;
+    \{ P(y), \neg S(y,x) \}
+    \; \}
+  \end{displaymath}
+  so that the variables in each clause are standardized apart.
+  
+\item \textbf{[20 points]} Convert the formula
+  \begin{displaymath}
+    \forall x\ [P(x,y) \iff (\forall y\ (R(x,y) \implies Q(x,y)))]
+  \end{displaymath}
+  to negation normal form, showing the steps of the conversion.
+  
+\item \textbf{[20 points]} Convert the sentence
+  \begin{displaymath}
+    \exists x\ \forall y\ \left( [P(x,y) \land (\forall z\ Q(y,z))] \lor
+      [\exists u\ \exists v\ (P(x,u) \land R(y,v))] \right)
+  \end{displaymath}
+  to Skolem form, showing the steps of the conversion.
+
+\item \textbf{[20 points]} Convert the formula
+  \begin{displaymath}
+    \exists x\ [(\forall y\ P(x,y)) \implies (\exists z\ Q(x,z))]
+  \end{displaymath}
+  to prenex normal form, showing the steps of the conversion.
+  
+\item \textbf{[20 points]} Compute the product substitution $\theta\sigma$
+  for
+  \begin{eqnarray*}
+    \theta &=& \{ a/x, b/y, f(y)/z, v/w, c/u \} \\
+    \sigma &=& \{ f(y)/x, g(z)/y, w/v \} 
+  \end{eqnarray*}
+
+\end{enumerate}
+
+\end{document}
