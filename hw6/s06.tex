@@ -18,6 +18,31 @@
 \end{displaymath}
 in clausal form set notation.
 
+\begin{answer}
+  Remove implication:\\
+  \begin{displaymath}
+    (\neg P(x,y) \lor (\neg Q(x,y) \land R(y,z))) \land (P(x,y) \land
+    S(y,x))
+  \end{displaymath}
+  Convert to CNF: distribute disjunction over conjunctions:\\
+  \begin{displaymath}
+    (\neg P(x,y) \lor \neg Q(x,y)) \land (\neg P(x,y) \lor R(y,z)) \land P(x,y) \land
+    S(y,x)
+  \end{displaymath}
+  The clausal form set notation:\\
+  \begin{displaymath}
+    \{ \; 
+    \{\neg P(x,y), \neg Q(x,y)\}, 
+    \;
+    \{\neg P(x,y), R(y,z)\}, 
+    \;
+    \{P(x,y)\}, 
+    \;
+    \{S(y,x)\}
+    \; \}
+  \end{displaymath}
+\end{answer}
+
 \item \textbf{[10 points]} Rewrite the statement
   \begin{displaymath}
     \{ \;
@@ -29,6 +54,19 @@ in clausal form set notation.
     \; \}
   \end{displaymath}
   so that the variables in each clause are standardized apart.
+
+  \begin{answer}
+    Rename variables to different name in each clause:\\
+    \begin{displaymath}
+      \{ \;
+      \{ R(x_1,y_1,z_1), S(y_1,z_1), S(x_1,y_1) \},
+      \;
+      \{ P(x_2), S(x_2,y_2), \neg R(y_2,y_2,x_2) \},
+      \;
+      \{ P(y_3), \neg S(y_3,x_3) \}
+      \; \}
+    \end{displaymath}
+  \end{answer}
   
 \item \textbf{[20 points]} Convert the formula
   \begin{displaymath}
@@ -36,6 +74,37 @@ in clausal form set notation.
   \end{displaymath}
   to negation normal form, showing the steps of the conversion.
   
+  \begin{answer}
+    Insert parentheses to explicitly indicate $y$ quantifier scope:\\
+    \begin{displaymath}
+      \forall x\ [P(x,y) \iff \ [ \forall y\ (R(x,y) \implies Q(x,y))]\ ]
+    \end{displaymath}
+
+    Rewrite $\iff$ to $\implies$:\\
+    \begin{displaymath}
+      \forall x\ [(P(x,y) \implies [\forall y\ (R(x,y) \implies Q(x,y))]) 
+      \land ([\forall y\ (R(x,y) \implies Q(x,y))] \implies P(x, y))]
+    \end{displaymath}
+    
+    Remove  $\implies$ with $\neg$ and $\lor$:\\
+    \begin{displaymath}
+      \forall x\ [ (\neg P(x,y) \lor [\forall y\ (\neg R(x,y) \lor Q(x,y))]) 
+      \land (\neg [\forall y\ (\neg R(x,y) \lor Q(x,y))] \lor P(x, y))]
+    \end{displaymath}
+
+    Then move negations in:\\
+    \begin{displaymath}
+      \forall x\ [ (\neg P(x,y) \lor [\forall y\ (\neg R(x,y) \lor Q(x,y))]) 
+      \land ([\exists y \neg \neg (R(x,y) \land \neg Q(x,y))] \lor P(x, y))]
+    \end{displaymath}
+
+    Remove doubles negations:\\
+    \begin{displaymath}
+      \forall x\ [ (\neg P(x,y) \lor [\forall y\ (\neg R(x,y) \lor Q(x,y))]) 
+      \land ([\exists y (R(x,y) \land \neg Q(x,y))] \lor P(x, y))]
+    \end{displaymath}
+    Now the formula is in NNF.
+  \end{answer}
 \item \textbf{[20 points]} Convert the sentence
   \begin{displaymath}
     \exists x\ \forall y\ \left( [P(x,y) \land (\forall z\ Q(y,z))] \lor
@@ -43,19 +112,75 @@ in clausal form set notation.
   \end{displaymath}
   to Skolem form, showing the steps of the conversion.
 
+  \begin{answer}
+    The given sentence is already in NNF:
+    \begin{displaymath}
+      \exists x\ \forall y\ \left( [P(x,y) \land (\forall z\ Q(y,z))] \lor
+        [\exists u\ \exists v\ (P(x,u) \land R(y,v))] \right)
+    \end{displaymath}
+    Variable $x$ has no preceding universally quantified variables, so replace
+    $x$ with constance $c$ and drop $\exists x$:
+    \begin{displaymath}
+      \forall y\ \left( [P(c,y) \land (\forall z\ Q(y,z))] \lor
+        [\exists u\ \exists v\ (P(c,u) \land R(y,v))] \right)
+    \end{displaymath}
+    Variable $u$ has one preceding universally quantified variables $y$, so replace
+    $u$ with function $f_1(y)$ and drop $\exists u$:
+    \begin{displaymath}
+      \forall y\ \left( [P(c,y) \land (\forall z\ Q(y,z))] \lor
+        [ \exists v\ (P(c,f_1(y)) \land R(y,v))] \right)
+    \end{displaymath}
+    Variable $v$ has one preceding universally quantified variables $y$, so replace
+    $v$ with function $f_2(y)$ and drop $\exists v$:
+    \begin{displaymath}
+      \forall y\ \left( [P(c,y) \land (\forall z\ Q(y,z))] \lor
+        [ (P(c,f_1(y)) \land R(y,f_2(y)))] \right)
+    \end{displaymath}
+    Now the sentence is in Skolem form.
+  \end{answer}
+
 \item \textbf{[20 points]} Convert the formula
   \begin{displaymath}
     \exists x\ [(\forall y\ P(x,y)) \implies (\exists z\ Q(x,z))]
   \end{displaymath}
   to prenex normal form, showing the steps of the conversion.
   
+  \begin{answer}
+    Convert to NNF first:
+    \begin{displaymath}
+      \exists x\ [\neg (\forall y\ P(x,y)) \lor (\exists z\ Q(x,z))]
+    \end{displaymath}
+    \begin{displaymath}
+      \exists x\ [(\exists y \neg P(x,y)) \lor (\exists z\ Q(x,z))]
+    \end{displaymath}
+    Move quantifier $\exists y$ out, rename $y$ with $u$:
+    \begin{displaymath}
+      \exists x\ \exists u \ [\neg P(x,u) \lor (\exists z\ Q(x,z))]
+    \end{displaymath}
+    Move quantifier $\exists z$ out, rename $z$ with $v$:
+    \begin{displaymath}
+      \exists x\ \exists u\ \exists v\ [\neg P(x,u) \lor  Q(x,v)]
+    \end{displaymath}
+    Now the sentence is in prenex form.
+
+  \end{answer}
 \item \textbf{[20 points]} Compute the product substitution $\theta\sigma$
   for
   \begin{eqnarray*}
     \theta &=& \{ a/x, b/y, f(y)/z, v/w, c/u \} \\
     \sigma &=& \{ f(y)/x, g(z)/y, w/v \} 
   \end{eqnarray*}
-
+  \begin{answer}
+    \begin{eqnarray*}
+      \theta \sigma &=& \{ a\sigma/x, b\sigma/y, f(y)\sigma/z, v\sigma/w, c\sigma/u,  f(y)/x, g(z)/y, w/v\} \\
+      \theta \sigma &=& \{ a/x, b/y, f(g(z))/z, w/w, c/u,  f(y)/x, g(z)/y, w/v\} 
+    \end{eqnarray*}
+    minus identical substitution in $\theta$, and minus those in $\sigma$ where have same target variable as in $\theta$.
+    So remove $w/w$, $f(y)/x$ and $g(z)/y$, now the product substitution is:
+    \begin{eqnarray*}
+      \theta \sigma &=& \{ a/x, b/y, f(g(z))/z, c/u, w/v\} 
+    \end{eqnarray*}
+  \end{answer}
 \end{enumerate}
 
 \end{document}
