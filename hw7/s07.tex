@@ -1,0 +1,163 @@
+\documentclass{article}
+\input{503macros.tex}
+
+\begin{document}
+\begin{center}
+  {\LARGE CSC 503 Homework Assignment 7}\\
+  Out: November 1, 2018 \\
+  Due: November 7, 2018 \\
+  \unityid{zzha}
+\end{center}
+
+\indent
+For your reference, the algorithm to calculate the most general
+unifier $\sigma$ of a set $S$ of predicate expressions consists of the
+following steps.
+\begin{itemize}
+
+\item Step 0:
+  \begin{enumerate}
+  \item Let $S_0 = S$
+  \item Let $\sigma_0 = \epsilon$
+  \end{enumerate}
+
+\item Step $k+1$:
+  \begin{enumerate}
+  \item If $S_k$ has exactly one element, return the product
+    substitution $\sigma_0\cdots\sigma_k$ as the value of $\sigma$
+  \item If the disagreement set $D(S_k)$ contains both a variable
+    $v$ and a term $t$ in which $v$ \emph{does not occur}, then
+    \begin{enumerate}
+    \item Choose least such pair (alphabetical order by variable, then
+      by term)
+    \item Let $\sigma_{k+1} = \{ t/v \}$
+    \item Let $S_{k+1} = S_k \sigma_{k+1}$
+    \item Proceed to step $k+2$
+    \end{enumerate}
+  \item Otherwise, announce that $S$ has no unifier
+  \end{enumerate}
+\end{itemize}
+When showing the steps of a unification calculation, use the form
+given in the lecture notes on slides 338-341.  That is, for each step
+$k$, show
+\begin{itemize}
+\item the disagreement set $D(S_k)$ of $S_k$,
+\item the substitution $\sigma_k$ if there is one, or an explanation
+  why there is no unifying substitution, and
+\item the result $S_{k+1}$ of applying $\sigma_k$ to $S_k$, if there
+  is one.
+\end{itemize}
+If the set unifies, at the end of the steps show
+\begin{itemize}
+\item the overall substitution $\sigma_0 \dots \sigma_k$ expressed as
+  a single substitution.
+\end{itemize}
+That is, compute and display the complete product of the stepwise
+substitutions.
+
+Consider now a language in which $a$ and $b$ are constant symbols, $f$
+is a binary function symbol, $g$ is a unary function symbol, $P$ is a
+ternary predicate symbol, and $u,v,w,x,y,z$ are variable symbols.
+
+\begin{enumerate}
+\item[1.] \textbf{[20 points]} $S = \{ P(f(b),y,f(y)), P(x,x,z) \}$
+\end{enumerate}
+
+\begin{enumerate}
+\item[2.] \textbf{[20 points]} $S = \{ P(x,x), P(y,g(h(y))) \}$
+\end{enumerate}
+
+\begin{enumerate}
+\item[3.] \textbf{[20 points]}
+  $S = \{ P(f(w,a),h(g(v),u)), P(f(w,w),h(x,g(y))), P(f(v,a),g(v)) \}$
+\end{enumerate}
+
+\newpage
+
+The following is an example of a propositional resolution refutation
+proof of $Q$ from premises $P$ and $P \implies Q$, with the proof
+written in linear form.
+\begin{center}
+  \begin{tabular}{lll}
+    Line & Clause & Justification \\ \hline
+    1. & $\{ P \}$ & Given \\
+    2. & $\{ \neg P, Q \}$ & Given \\ \hline
+    3. & $\{ \neg Q \}$ & Refutation clause, negation of goal $Q$ \\
+    4. & $\{ \neg P \}$ & Resolving (2) with (3) on $Q$  \\
+    5. & $\{ \}$ & Resolving (4) with (1) on $P$  \\ 
+  \end{tabular}
+\end{center}
+If the negation of the goal had consisted of several clauses, each of
+those would have been listed on a separate line as a refutation clause
+(as is done for the single clause on line 3).  The order in which
+lines are mentioned in lines 4 and 5 does not matter.
+
+The following is an example of a predicate resolution refutation proof
+of $Q(a)$ from premises $P(a)$ and $\forall x\ [P(x) \implies Q(x)]$,
+again with the proof written in linear form.
+\begin{center}
+  \begin{tabular}{llll}
+    Line & Clause & Justification & Unifier \\ \hline
+    1. & $\{ P(a) \}$ & Given & \\
+    2. & $\{ \neg P(x_2), Q(x_2) \}$ & Given & \\ \hline
+    3. & $\{ \neg Q(a) \}$ & Refutation clause, negation of goal
+                             $Q(a)$ & \\
+    4. & $\{ \neg P(a) \}$ & Resolving (2) with (3) on $Q$ & $\{ a/x_2
+                                                             \}$ \\
+    5. & $\{ \}$ & Resolving (4) with (1) on $P$ & $\{ \}$  \\ 
+  \end{tabular}
+\end{center}
+Here the variables in line 2 have been standardized apart, which was
+not really necessary for this proof as line 2 represents the only
+given involving variables.  If the resolution steps in lines 4 and 5
+had involved multiple literals in one of the clauses, the
+justification would have needed to indicate the specific literals
+involved.
+
+In the following two problems concerning resolution proofs, write the
+proofs in either linear or tree form.
+
+\begin{enumerate}
+\item[4.] \textbf{[20 points]} Let $P,Q,R,S,T,U,V$ be atomic
+  propositional symbols, and give a resolution refutation proof of
+  $V$.
+  \begin{center}
+    \begin{tabular}{lll}
+      Line & Clause & Justification \\ \hline
+      1. & $\{ \neg P, Q \}$ & Given \\
+      2. & $\{ \neg P, R \}$ & Given \\
+      3. & $\{ \neg S, \neg T, U \}$ & Given \\
+      4. & $\{ \neg U, \neg Q, V \}$ & Given \\
+      5. & $\{ P \}$ & Given \\
+      6. & $\{ S \}$ & Given \\
+      7. & $\{ T \}$ & Given \\ \hline
+    \end{tabular}
+  \end{center}
+\end{enumerate}
+
+\begin{enumerate}
+\item[5.] \textbf{[20 points]} Let $a$ and $b$ be constant symbols,
+  $f$ and $h$ unary function symbols, $P$ a ternary predicate symbol,
+  $Q$ and $R$ binary prdicate symbols, and $u,v,w,x,y,z$ variables.
+  Rewrite the folllwing five clauses with the variables standardized
+  apart, and then give a resolution refutation of the set of rewritten
+  clauses.  At each step of the refutation, indicate the literals
+  being resolved together and the most general unifying substitution
+  used in the proof step.  If there is only one possible choice of
+  complementary literals, indicate only the predicate symbol being
+  resoleve on, not the arguments of the literals.  Note: you may need
+  to resolve multiple instances of the same literal in a single step.
+  \begin{center}
+    \begin{tabular}{llll}
+      Line & Clause & Justification & Substitution \\ \hline
+      1. & $\{ \neg P(w,a,f(h(b))), Q(a,x) \}$ & Given & \\
+      2. & $\{ \neg Q(a,v) \}$ & Given & \\ 
+      3. & $\{ P(u,a,f(h(u))), Q(a,u), R(h(b),b) \}$ & Given & \\
+      4. & $\{ \neg R(h(b),w), Q(a,w) \}$ & Given & \\
+      5. & $\{ P(x,a,f(y)), P(z,a,f(h(b))), \neg R(y,z) \}$ & Given & \\ \hline
+    \end{tabular}
+  \end{center}
+\end{enumerate}
+
+\end{document}
+\endinput
